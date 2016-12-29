@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+.nav-wrapper{
+    padding-left: 15px;
+}
+
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.no_margin{
+    margin: 0;
+}
+.mgt{
+    margin-top: 2em;
+}
+.mainwrapper{
+    flex: 1 0 auto;
+}
+.login_container{
+    margin-top: 2em;
+}
+.login_title{
+    padding: 1em;
+    color: #fafafa;
+}
+.login_body{
+    padding: 1em;
+}
