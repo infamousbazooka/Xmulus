@@ -2,11 +2,17 @@
 <html>
 <head><% include partials/template/head.ejs %></head>
 <body>
-    <% include partials/template/header.ejs %>
     <div class="mainwrapper">
-        <% include partials/content/dashboard.ejs %>
+      <section>
+        <div class="menu">
+          <% include partials/content/dashboardmenu.ejs %>
+        </div>
+        <div class="main right">
+          <% include partials/content/dashboard.ejs %>
+          <% include partials/template/footer.ejs %>
+        </div>
+      </section>
     </div>
-    <% include partials/template/footer.ejs %>
     <% include partials/template/jsdefaults.ejs %>
 </body>
 </html>

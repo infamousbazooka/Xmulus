@@ -15,19 +15,15 @@ const auth = firebase.auth();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+  res.render('index', { title: 'Home', lbtn: true, footer_content: true });
 });
 
 router.get('/Login', function(req, res, next) {
-  res.render('login', { title: 'Login', lbtn: false });
+  res.render('login', { title: 'Login', lbtn: false, footer_content: true });
 });
 
 router.get('/Register', function(req, res, next) {
-  res.render('login', { title: 'Register', lbtn: false });
-});
-
-router.get('/Dashboard', function(req, res, next) {
-  res.render('dashboard', { title: 'Dashboard', lbtn: false });
+  res.render('login', { title: 'Register', lbtn: false, footer_content: true });
 });
 
 router.post('/Login/Submit', function(req, res, next){
