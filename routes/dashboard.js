@@ -29,7 +29,7 @@ request(options_rated, function (error, response, body) {
 });
 
 var options_upcoming = { method: 'GET',
-  url: 'https://api.themoviedb.org/3/movie/latest',
+  url: 'https://api.themoviedb.org/3/movie/upcoming',
   qs: {
     language: 'en-US',
     api_key: 'fa1ad33c2c7b13939445ce18e5209ee0' },
