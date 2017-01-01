@@ -8,8 +8,12 @@
           <% include partials/content/dashboardmenu.ejs %>
         </div>
         <div class="main right">
-          <% include partials/content/dashboard.ejs %>
-          <% include partials/template/footer.ejs %>
+            <% if(title == 'Dashboard') { %>
+                <% include partials/content/dashboard.ejs %>
+            <% } else { %>
+                <% include partials/content/details.ejs %>
+            <% } %>
+            <% include partials/template/footer.ejs %>
         </div>
       </section>
     </div>

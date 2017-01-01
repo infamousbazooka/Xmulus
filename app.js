@@ -23,6 +23,7 @@ app.use('/', index);
 app.use('/Login', index);
 app.use('/Register', index);
 app.use('/Dashboard', dashboard.list);
+app.use('/Movie/Details', index);
 
 
 // catch 404 and forward to error handler

@@ -26,6 +26,25 @@ router.get('/Register', function(req, res, next) {
   res.render('login', { title: 'Register', lbtn: false, footer_content: true });
 });
 
+router.get('/Movie/Details/:movieId?', function(req, res, next) {
+  var movieId = req.params.movieId;
+  console.log("Movie ID: " + movieId);
+  var details = {};
+  var options = { method: 'GET',
+    url: 'https://api.themoviedb.org/3/movie/330459',
+    qs: {
+      language: 'en-US',
+      api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
+    },
+    body: '{}'
+  };
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    details = JSON.parse(body);
+  });
+  res.render('dashboard', { title: details.original_title + " - Xmulus Dashboard", lbtn: false, footer_content: true, details: details });
+});
+
 router.post('/Login/Submit', function(req, res, next){
   var email = req.body.email;
   var password = req.body.password;
