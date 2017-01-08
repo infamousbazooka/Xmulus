@@ -6,6 +6,9 @@
 .nav-wrapper{
     padding-left: 15px;
 }
+.iblock{
+    display: inline-block;
+}
 
 body{
     display: flex;
@@ -130,4 +133,47 @@ section.card .list_slider::-webkit-scrollbar-thumb{
 }
 .details .chips{
     padding: 1em 0;
+}
+
+
+
+
+/*dashmenu*/
+
+.side-nav .userView{
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+
+/*Watchlist*/
+
+.watchlist .header{
+    width: 100%;
+    padding: 1em;
+    color: #fafafa;
+}
+.watchlist .header h4{
+    padding-bottom: 4px;
+    border-bottom: 4px solid #fafafa;
+}
+.watchlist .drawer{
+    padding: 1em;
+}
+.watchlist .list{
+    margin: 0 1em;
+}
+
+/*Movies*/
+.movies .header{
+    width: 100%;
+    padding: 1em;
+    color: #fafafa;
+}
+.movies .header h4{
+    padding-bottom: 4px;
+    border-bottom: 4px solid #fafafa;
+}
+.movies .searchbox{
+    margin: 1em 0;
 }

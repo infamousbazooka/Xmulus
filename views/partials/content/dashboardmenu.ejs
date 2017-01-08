@@ -4,13 +4,15 @@
             <div class="background">
                 <img src="/images/profile_land.jpg">
             </div>
-            <a href="#!user"><img class="circle" src="/images/profile_default.png"></a>
-            <a href="#!name"><span class="white-text name">John Doe</span></a>
+            <div><img class="circle" src="/images/profile_default.png"></div>
+            <div class="white-text name"><%= email %></div>
             <div class="white-text email"><%= email %></div>
         </div>
     </li>
-    <li><a href="#!">Films</a></li>
-    <li><a href="#!">My Watchlist</a></li>
+    <li><a href="/Dashboard"><i class="material-icons">home</i>Home</a></li>
+    <li><a href="/Dashboard/Movies"><i class="material-icons">theaters</i>Movies</a></li>
+    <li><a href="/Dashboard/Watchlist"><i class="material-icons">video_library</i>My Watchlist</a></li>
+    <li><a href="#!"><i class="material-icons">stars</i>Favourites</a></li>
     <li><div class="divider"></div></li>
     <li class="center">
         <form action="/" method="post">

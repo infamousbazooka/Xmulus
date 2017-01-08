@@ -31,13 +31,15 @@ router.get('/Register', function(req, res, next) {
   res.render('login', { title: 'Register', lbtn: false, footer_content: true });
 });
 
-router.get('/Dashboard/Watchlist', function(req, res, next) {
-  res.render('dashboard', { title: 'Watchlist', lbtn: false, footer_content: true });
+router.get('/Dashboard/Movies', function(req, res, next) {
+  res.render('dashboard', { title: 'Movies', email: req.user.email, lbtn: false, footer_content: true });
 });
 
+router.get('/Dashboard/Watchlist', function(req, res, next) {
+  res.render('dashboard', { title: 'Watchlist', email: req.user.email, lbtn: false, footer_content: true });
+});
 
-
-router.get('/Movie/Details/:movieId', function(req, res, next) {
+router.get('/Dashboard/Movies/:movieId', function(req, res, next) {
   var details_results = {};
   var options = {
     method: 'GET',
@@ -59,20 +61,18 @@ router.get('/Movie/Details/:movieId', function(req, res, next) {
       details: details_results
     });
   });
-
 });
 
 router.post('/Login', function(req, res, next){
   var email = req.body.email;
   var password = req.body.password;
   auth.signInWithEmailAndPassword(email, password)
-  .then(function (user) {
-    res.redirect('/Dashboard');
-  }).catch(function (err){
-    console.log("Error New", err);
-    res.render('login', { title: "Login", lbtn: false, footer_content: true, msg: "Invalid Credentials"});
-  })
-
+    .then(function (user) {
+      res.redirect('/Dashboard');
+    }).catch(function (err){
+      console.log("Error New", err);
+      res.render('login', { title: "Login", lbtn: false, footer_content: true, msg: "Invalid Credentials"});
+    });
 });
 firebase.auth().onAuthStateChanged(function(firebaseUser){
   if(firebaseUser){

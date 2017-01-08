@@ -3,6 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
 var firebase = require('firebase');
 
@@ -10,6 +11,10 @@ var index = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 
 var app = express();
+
+// Locals
+app.locals.moment = moment;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,8 +47,9 @@ app.use('/Home', index);
 app.use('/Login', index);
 app.use('/Register', index);
 app.use('/Dashboard', dashboard.list);
-app.use('/Movie/Details/', index);
+app.use('/Dashboard/Movies/', index);
 app.use('/Dashboard/Watchlist/', index);
+app.use('/Dashboard/Movies/', index);
 app.use('/Logout', index);
 
 

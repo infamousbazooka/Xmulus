@@ -1,6 +1,6 @@
 var request = require("request");
 var firebase = require('firebase');
-var async = require('async')
+var async = require('async');
 
 function getDashboard (mainCb) {
   async.parallel({
