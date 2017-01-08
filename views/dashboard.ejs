@@ -10,6 +10,8 @@
         <div class="main right">
             <% if(title == 'Dashboard') { %>
                 <% include partials/content/dashboard.ejs %>
+            <% } else if(title == "Watchlist") { %>
+                <% include partials/content/watchlist.ejs %>
             <% } else { %>
                 <% include partials/content/details.ejs %>
             <% } %>

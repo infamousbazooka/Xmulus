@@ -108,3 +108,26 @@ section.card .list_slider::-webkit-scrollbar{
 section.card .list_slider::-webkit-scrollbar-thumb{
     background-color: #b71c1c;
 }
+
+
+
+/*details page*/
+
+.details .title{
+    padding: 2em;
+}
+.details .title h5{
+    display: inline-block;
+    padding-bottom: 5px;
+    border-bottom: 4px solid #fafafa;
+}
+.details .container{
+    margin-top: 1em;
+}
+.details .card-content b{
+    display: inline-block;
+    padding-bottom: 3px;
+}
+.details .chips{
+    padding: 1em 0;
+}

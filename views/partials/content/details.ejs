@@ -1,0 +1,52 @@
+<style>
+    body{
+        background-image: url('https://image.tmdb.org/t/p/w1000/<%= details.backdrop_path %>');
+        background-size: 100% 100%;
+        background-attachment: fixed;
+    }
+</style>
+<div class="details">
+    <div class="title red darken-4 white-text">
+        <h5><%= details.original_title %></h5>
+        <h6><%= details.tagline %></h6>
+        <h6>By <%= details.production_companies[0].name %></h6>
+        <h6 class="btn-floating btn-large waves-effect waves-light grey darken-4"><%= details.original_language %></h6>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        <img src="https://image.tmdb.org/t/p/w1000/<%= details.poster_path %>">
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <h6><b>Overview</b></h6>
+                            <p><%= details.overview %></p>
+                            <div class="chips">
+                                <% for(i=0; i<details.genres.length; i++) { %>
+                                    <div class="chip"><%= details.genres[i].name %></div>
+                                <% } %>
+                            </div>
+                            <h6><b>Runtime:</b> <%= details.runtime %> mins.</h6>
+                            <h6><b>Budget:</b> $<%= details.budget %>.</h6>
+                            <h6><b>Revenue:</b> $<%= details.revenue %>.</h6>
+                            <h6><b>Released on:</b> <span id="locale"></span>.</h6>
+                            <script>
+                                var objDate = new Date("<%= details.release_date %>");
+                                var locale = objDate.toLocaleString("en-us", { day: "numeric" }) + " "
+                                    + objDate.toLocaleString("en-us", { month: "long" }) + " "
+                                    + objDate.toLocaleString("en-us", { year: "numeric" });
+                                document.getElementById("locale").innerHTML = locale;
+                            </script>
+                            <h6 class="center"><a class="waves-effect waves-light btn grey darken-4" href="<%= details.homepage %>" target="_blank"><i class="material-icons left">surround_sound</i>Visit Homepage</a></h6>
+                        </div>
+                        <div class="card-action">
+                            <a class="waves-effect waves-light btn red darken-4" href="https://www.imdb.com/title/<%= details.imdb_id %>" target="_blank"><i class="material-icons left">surround_sound</i>IMDB link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

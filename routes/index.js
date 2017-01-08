@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
+var request = require("request");
 
 var config = {
   apiKey: "AIzaSyBVBxfc1lIRrRz_9oheBI8_VVoAdLefjKM",
@@ -18,20 +19,29 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Home', lbtn: true, footer_content: true });
 });
 
+router.post('/', function(req, res, next){
+  res.redirect('/');
+});
+
 router.get('/Login', function(req, res, next) {
-  res.render('login', { title: 'Login', lbtn: false, footer_content: true });
+  res.render('login', { title: 'Login', lbtn: false, footer_content: true, msg: "" });
 });
 
 router.get('/Register', function(req, res, next) {
   res.render('login', { title: 'Register', lbtn: false, footer_content: true });
 });
 
-router.get('/Movie/Details/:movieId?', function(req, res, next) {
-  var movieId = req.params.movieId;
-  console.log("Movie ID: " + movieId);
-  var details = {};
-  var options = { method: 'GET',
-    url: 'https://api.themoviedb.org/3/movie/330459',
+router.get('/Dashboard/Watchlist', function(req, res, next) {
+  res.render('dashboard', { title: 'Watchlist', lbtn: false, footer_content: true });
+});
+
+
+
+router.get('/Movie/Details/:movieId', function(req, res, next) {
+  var details_results = {};
+  var options = {
+    method: 'GET',
+    url: 'https://api.themoviedb.org/3/movie/' + req.params.movieId,
     qs: {
       language: 'en-US',
       api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
@@ -40,18 +50,36 @@ router.get('/Movie/Details/:movieId?', function(req, res, next) {
   };
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
-    details = JSON.parse(body);
+    details_results = JSON.parse(body);
+    res.render('dashboard', {
+      title: details_results.original_title + " - Xmulus Dashboard",
+      lbtn: false,
+      email: req.user.email,
+      footer_content: false,
+      details: details_results
+    });
   });
-  res.render('dashboard', { title: details.original_title + " - Xmulus Dashboard", lbtn: false, footer_content: true, details: details });
+
 });
 
-router.post('/Login/Submit', function(req, res, next){
+router.post('/Login', function(req, res, next){
   var email = req.body.email;
   var password = req.body.password;
-  const promise = auth.signInWithEmailAndPassword(email, password);
-  promise.catch(function(e){
-    console.log(e.message)
-  });
+  auth.signInWithEmailAndPassword(email, password)
+  .then(function (user) {
+    res.redirect('/Dashboard');
+  }).catch(function (err){
+    console.log("Error New", err);
+    res.render('login', { title: "Login", lbtn: false, footer_content: true, msg: "Invalid Credentials"});
+  })
+
+});
+firebase.auth().onAuthStateChanged(function(firebaseUser){
+  if(firebaseUser){
+    console.log("Here i am: " + firebaseUser.email);
+  } else{
+    console.log("Not logged in!");
+  }
 });
 
 router.post('/Register/Submit', function(req, res, next){
@@ -77,14 +105,6 @@ router.post('/Register/Submit', function(req, res, next){
     promise.catch(function(e){
       console.log(e.message)
     });
-  }
-});
-
-firebase.auth().onAuthStateChanged(function(firebaseUser){
-  if(firebaseUser){
-    res.redirect("/Dashboard/");
-  } else{
-    console.log("Not logged in!");
   }
 });
 
