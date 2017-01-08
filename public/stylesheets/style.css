@@ -177,3 +177,7 @@ section.card .list_slider::-webkit-scrollbar-thumb{
 .movies .searchbox{
     margin: 1em 0;
 }
+
+#searchlist li .card-title{
+    font-size: 14px;
+}
