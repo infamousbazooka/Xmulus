@@ -8,6 +8,7 @@ $(document).ready(function() {
   $('.main').css('width', $(window).width() - $('.side-nav').width());
   $('.list_slider li').css('width', $('.main').width()/4);
   $('.list_slider ul').css('width', $('.main').width()*5 + 80);
+  $('#viewer').css('height', $('#viewer').width());
 });
 
 $('#searchform').submit(function(e){
@@ -35,4 +36,19 @@ $('#searchform').submit(function(e){
       }
     });
     e.preventDefault();
+});
+
+
+$("#profile_picture").change(function(e) {
+  for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+        var file = e.originalEvent.srcElement.files[i];
+
+        var img = document.getElementById("viewer");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+             img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
 });

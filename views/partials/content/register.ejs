@@ -7,7 +7,7 @@
             </div>
             <div class="card no_margin login_body">
                 <div class="row">
-                    <form class="col s12" method="POST" action="/Register/Submit">
+                    <form class="col s12" method="POST" action="/Register">
                         <div class="row no_margin">
                             <div class="input-field col s6">
                                 <input id="full_name" required type="text" name="fname" class="validate">
@@ -41,6 +41,29 @@
                             <div class="input-field col s12">
                                 <textarea id="bio" name="bio" required class="materialize-textarea"></textarea>
                                 <label for="bio">About Yourself*</label>
+                            </div>
+                            <div class="file-field input-field col s12">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input id="profile_picture" type="file" name="profile_picture" accept="image/gif, image/jpeg, image/png">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="progress hide">
+                                    <div class="determinate" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s4"></div>
+                                    <div class="col s4">
+                                        <img src="/images/profile_default.png" id="viewer" class="responsive-img">
+                                    </div>
+                                    <div class="col s4"></div>
+                                </div>
                             </div>
                             <div class="col s12">
                                 <p class="right">* marked fields are necessary</p>

@@ -82,7 +82,7 @@ firebase.auth().onAuthStateChanged(function(firebaseUser){
   }
 });
 
-router.post('/Register/Submit', function(req, res, next){
+router.post('/Register', function(req, res, next){
   var fname = req.body.fname;
   var email = req.body.email;
   var password = req.body.password;
@@ -90,9 +90,9 @@ router.post('/Register/Submit', function(req, res, next){
   var gender = req.body.gender;
   var dob = req.body.dob;
   var bio = req.body.bio;
+  var profile_picture = req.body.profile_picture;
 
   if (password === cpassword) {
-    const promise = auth.createUserWithEmailAndPassword(email, password);
     var user = {};
     user.name = fname;
     user.email = email;
@@ -100,7 +100,34 @@ router.post('/Register/Submit', function(req, res, next){
     user.gender = gender;
     user.date_of_birth = dob;
     user.bio = bio;
-    var dbRef = firebase.database().ref('users').push(user);
+
+    //Get File
+//     var file = profile_picture;
+//
+//     //Create Storage reference
+//     var storageRef = firebase.storage().ref();
+//     var mountainImagesRef = storageRef.child('profiles/' + email + '.jpg');
+//
+//     //Upload file
+//     // var task = mountainImagesRef.put(file);
+//     mountainImagesRef.put(file).then(function(snapshot) {
+//   console.log('Uploaded a blob or file!');
+// });
+
+    // task.on('state_changed',
+    //   function progress(snapshot){
+    //     var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) / 100;
+    //     console.log(percentage);
+    //   },
+    //   function error(err){
+    //
+    //   },
+    //   function complete(){
+    //     console.log("Complete");
+    //     const promise = auth.createUserWithEmailAndPassword(email, password);
+    //     var dbRef = firebase.database().ref('users').push(user);
+    //   }
+    // );
 
     promise.catch(function(e){
       console.log(e.message)
