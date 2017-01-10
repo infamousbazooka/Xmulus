@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
 var request = require("request");
+var async = require('async');
 
 var config = {
   apiKey: "AIzaSyBVBxfc1lIRrRz_9oheBI8_VVoAdLefjKM",
@@ -39,28 +40,102 @@ router.get('/Dashboard/Watchlist', function(req, res, next) {
   res.render('dashboard', { title: 'Watchlist', email: req.user.email, lbtn: false, footer_content: true });
 });
 
+router.post('/Dasboard/Watchlist/:movieId', function(req, res, next){
+  console.log("FAAAAAAAAAAAAAAAAA");
+  console.log("Got ID: ", userEmail);
+  var movie = req.params.movieId;
+  var dbRef = firebase.database().ref('watchlists').push("dhsjd");
+  console.log("Got ID: ", userEmail);
+  res.redirect('/Dashboard');
+});
+
+
 router.get('/Dashboard/Movies/:movieId', function(req, res, next) {
-  var details_results = {};
-  var options = {
-    method: 'GET',
-    url: 'https://api.themoviedb.org/3/movie/' + req.params.movieId,
-    qs: {
-      language: 'en-US',
-      api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
+
+  function getDetails(mainCb){
+    async.parallel({
+      details: function(cb){
+        var options_details = {
+          method: 'GET',
+          url: 'https://api.themoviedb.org/3/movie/' + req.params.movieId,
+          qs: {
+            language: 'en-US',
+            api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
+          },
+          body: '{}'
+        };
+        request(options_details, function(error, response, body){
+          if(error) return cb(error);
+          cb(null, JSON.parse(body));
+        });
+      },
+      reviews: function(cb){
+        var options_reviews = {
+          method: 'GET',
+          url: 'https://api.themoviedb.org/3/movie/' + req.params.movieId + '/reviews',
+          qs:{
+            page: '1',
+            language: 'en-US',
+            api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
+          },
+          body: '{}'
+        };
+        request(options_reviews, function(error, response, body){
+          if(error) return cb(error);
+          cb(null, JSON.parse(body));
+        });
+      }
     },
-    body: '{}'
-  };
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-    details_results = JSON.parse(body);
-    res.render('dashboard', {
-      title: details_results.original_title + " - Xmulus Dashboard",
-      lbtn: false,
-      email: req.user.email,
-      footer_content: false,
-      details: details_results
+    function(err, result){
+      mainCb(err, result);
     });
+  }
+
+
+  getDetails(function (err, result) {
+    if(err) {
+      //show error page
+      res.status(500).send({
+        message: "Internal Server Error: Please contact Vassudevs."
+      });
+    } else {
+      res.render('dashboard', {
+        title: result.details.original_title + " - Xmulus Dashboard",
+        lbtn: false,
+        email: req.user.email,
+        footer_content: false,
+        details: result.details,
+        reviews: result.reviews.results
+      });
+    }
+
   });
+
+
+
+
+
+  // var details_results = {};
+  // var options = {
+  //   method: 'GET',
+  //   url: 'https://api.themoviedb.org/3/movie/' + req.params.movieId,
+  //   qs: {
+  //     language: 'en-US',
+  //     api_key: 'fa1ad33c2c7b13939445ce18e5209ee0'
+  //   },
+  //   body: '{}'
+  // };
+  // request(options, function (error, response, body) {
+  //   if (error) throw new Error(error);
+  //   details_results = JSON.parse(body);
+  //   res.render('dashboard', {
+  //     title: details_results.original_title + " - Xmulus Dashboard",
+  //     lbtn: false,
+  //     email: req.user.email,
+  //     footer_content: false,
+  //     details: details_results
+  //   });
+  // });
 });
 
 router.post('/Login', function(req, res, next){
@@ -128,7 +203,8 @@ router.post('/Register', function(req, res, next){
     //     var dbRef = firebase.database().ref('users').push(user);
     //   }
     // );
-
+    const promise = auth.createUserWithEmailAndPassword(email, password);
+    var dbRef = firebase.database().ref('users').push(user);
     promise.catch(function(e){
       console.log(e.message)
     });

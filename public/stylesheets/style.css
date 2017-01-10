@@ -131,12 +131,19 @@ section.card .list_slider::-webkit-scrollbar-thumb{
 .details .container{
     margin-top: 1em;
 }
+
 .details .card-content b{
     display: inline-block;
     padding-bottom: 3px;
 }
 .details .chips{
     padding: 1em 0;
+}
+.votes i{
+    vertical-align: bottom;
+}
+.details .collection .collection-item{
+    background-color: transparent;
 }
 
 

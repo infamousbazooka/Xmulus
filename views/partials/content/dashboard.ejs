@@ -38,11 +38,11 @@
                     </div>
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4"><h6 class="twolines"><%= upcoming[i].original_title %></h6><i class="material-icons right">more_vert</i></span>
-                        <p class="release_date"><%= upcoming[i].release_date %></p>
-                        <p><a href="#">This is a link</a></p>
+                        <p class="release_date red-text"><%= moment(upcoming[i].release_date).format("Do MMM YYYY") %></p>
+                        <div class="center mgt"><a href="../Dashboard/Movies/<%= upcoming[i].id %>" class="waves-effect waves-light btn"><i class="material-icons left">receipt</i>Details</a></div>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4"><h6><%= upcoming[i].original_title %></h6><i class="material-icons right">close</i></span>
+                        <span class="card-title grey-text text-darken-4"><h6 class="iblock"><%= upcoming[i].original_title %></h6><i class="material-icons right">close</i></span>
                         <div class="desc">
                             <%= upcoming[i].overview %>
                         </div>
@@ -66,11 +66,11 @@
                     </div>
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4"><h6 class="twolines"><%= rated[i].original_title %></h6><i class="material-icons right">more_vert</i></span>
-                        <p class="release_date"><%= rated[i].release_date %></p>
-                        <p><a href="#">This is a link</a></p>
+                        <p class="release_date red-text"><%= moment(rated[i].release_date).format("Do MMM YYYY") %></p>
+                        <div class="center mgt"><a href="../Dashboard/Movies/<%= rated[i].id %>" class="waves-effect waves-light btn"><i class="material-icons left">receipt</i>Details</a></div>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4"><h6><%= rated[i].original_title %></h6><i class="material-icons right">close</i></span>
+                        <span class="card-title grey-text text-darken-4"><h6 class="iblock"><%= rated[i].original_title %></h6><i class="material-icons right">close</i></span>
                         <div class="desc">
                             <%= rated[i].overview %>
                         </div>

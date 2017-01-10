@@ -34,7 +34,8 @@ app.use(function(req, res, next){
     firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
         req.user = {}
-        req.user.email = firebaseUser.email
+        req.user.email = firebaseUser.email;
+        app.locals.userEmail = firebaseUser.email;
         next()
       } else {
         res.redirect('/Login');

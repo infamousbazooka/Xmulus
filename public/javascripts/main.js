@@ -27,8 +27,8 @@ $('#searchform').submit(function(e){
             backdrop = '/images/backdrop.jpg';
           }
           $('#searchlist').append('<li class="col s4"><div class="card"><div class="card-image waves-effect waves-block waves-light"><img class="activator" src="' + backdrop
-          +'"></div><div class="card-content"><span class="card-title activator grey-text text-darken-4">'
-          + data.results[i].title + '<i class="material-icons right">more_vert</i></span><p><a href="/Dashboard/Movies/'
+          +'"></div><div class="card-content"><h6 class="card-title activator grey-text text-darken-4">'
+          + data.results[i].title + '<i class="material-icons right">more_vert</i></h6><p><a href="/Dashboard/Movies/'
           + data.results[i].id
           + '">Check this Movie</a></p></div><div class="card-reveal"><span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span><p>'
           + data.results[i].overview + '</p></div></div></li>');

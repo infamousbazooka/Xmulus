@@ -58,7 +58,7 @@ exports.list = function(req, res){
         if(err) {
           //show error page
           res.status(500).send({
-            message: "Internal Server Error: Please contact Sanket."
+            message: "Internal Server Error: Please contact Vassudevs."
           });
         } else {
           res.render('dashboard', {
