@@ -37,15 +37,23 @@ router.get('/Dashboard/Movies', function(req, res, next) {
 });
 
 router.get('/Dashboard/Watchlist', function(req, res, next) {
+  firebase.database().ref('watchlists').on('child_added', function(snapshot){
+    var newPost = snapshot.val();
+  });
   res.render('dashboard', { title: 'Watchlist', email: req.user.email, lbtn: false, footer_content: true });
 });
 
-router.post('/Dasboard/Watchlist/:movieId', function(req, res, next){
-  console.log("FAAAAAAAAAAAAAAAAA");
-  console.log("Got ID: ", userEmail);
-  var movie = req.params.movieId;
-  var dbRef = firebase.database().ref('watchlists').push("dhsjd");
-  console.log("Got ID: ", userEmail);
+router.post('/Dashboard/Watchlist/:movieId', function(req, res, next){
+  console.log("Got ID: ", req.user.email);
+  firebase.database().ref('users').on('child_added', function(snapshot){
+    var newPost = snapshot.val();
+    if (newPost.email = req.user.email) {
+      var movie = req.params.movieId;
+      console.log(newPost.email, " = ", req.user.email);
+      console.log(snapshot.key);
+      var dbRef = firebase.database().ref('watchlists').child(snapshot.key).push(movie);
+    }
+  });
   res.redirect('/Dashboard');
 });
 
@@ -152,6 +160,7 @@ router.post('/Login', function(req, res, next){
 firebase.auth().onAuthStateChanged(function(firebaseUser){
   if(firebaseUser){
     console.log("Here i am: " + firebaseUser.email);
+
   } else{
     console.log("Not logged in!");
   }
@@ -168,6 +177,7 @@ router.post('/Register', function(req, res, next){
   var profile_picture = req.body.profile_picture;
 
   if (password === cpassword) {
+    const promise = auth.createUserWithEmailAndPassword(email, password);
     var user = {};
     user.name = fname;
     user.email = email;
@@ -203,11 +213,12 @@ router.post('/Register', function(req, res, next){
     //     var dbRef = firebase.database().ref('users').push(user);
     //   }
     // );
-    const promise = auth.createUserWithEmailAndPassword(email, password);
     var dbRef = firebase.database().ref('users').push(user);
     promise.catch(function(e){
-      console.log(e.message)
+      console.log(e.message);
+      return;
     });
+    res.redirect('/Dashboard');
   }
 });
 

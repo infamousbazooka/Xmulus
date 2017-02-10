@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next){
   console.log(req.url)
-  if(req.url === '/' || req.url === '/Login' || req.url === "/Register") {
+  if(req.url === '/' || req.url === '/Login' || req.url === "/Lake") {
     next()
   } else {
     firebase.auth().onAuthStateChanged(function(firebaseUser) {
